@@ -194,13 +194,50 @@ select emp_no ,gender,
  from 
  employees;
 
---  to alter table
+--  to alter tabletable 
 
 alter table employees add address varchar(255);
+alter table employees drop address;
+
+-- alter table employees modify emp_no varchar(10);
+
+alter table employees change first_name f_name varchar(20);
+
+-- using check and default 
+
+CREATE TABLE employee_detail (
+    emp_no INT PRIMARY KEY,
+    mobile_num BIGINT NOT NULL DEFAULT 00000000,
+    age INT,
+    CHECK (age > 18)
+);
+
+-- date, date time 
+
+select * from employees where hire_date='2023-11-16';
+select * from employees where hire_date<'2023-11-16';
+select * from employees where hire_date>'2023-11-16';
+select * from employees where hire_date>'2023-11-16'and hire_date<'2023-12-10';
+select * from employees where hire_date between '1997-01-00' and '1997-01-31' ;
+select * from employees where month(hire_date)='02';
+select * from employees where month(hire_date)='02'and year(hire_date)='2023';
+select * from employees where year(hire_date)='2020';
+select * from employees where hire_date between curdate()-interval 1 day and curdate();
+select * from employees where time(hire_date)='20:00:00';
+select * from employees where time(hire_date)>'20:00:00';
+select * from employees where time(hire_date)<'20:00:00';
+select * from employees where time(hire_date)>'18:00:00' and time(hire_date)<'20:00:00';
+select * from employees where time(hire_date) between '18:00:00' and '18:00:00';
+alter table titles drop column title;
+select * from titles;
+
+-- truncate
+
+truncate titles;
+
+select * from employees where hire_date in (select birth_date from dept_emp);
 
 
 
 
- 
- 
  
