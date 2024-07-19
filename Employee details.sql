@@ -130,9 +130,73 @@ select * from salaries where salary between 10000 and 30000;
 
 select first_name as name from employees;
 
--- JOINS
+-- INNER JOINS
 
 
+select * from employees inner join salaries on employees.emp_no = salaries.emp_no; 
+
+select em.first_name, sa.salary from employees as em inner join salaries as sa on em.emp_no=sa.emp_no;
+
+-- Left JOINS
+select * from employees left join salaries on employees.emp_no= salaries.emp_no;
+
+select * from salaries;
+
+select em.first_name, sa.salary from employees as em left join salaries as sa on em.emp_no=sa.emp_no;
+
+-- right join 
+
+select * from employees right join salaries on employees.emp_no=salaries.emp_no;
+
+select em.first_name ,sa.salary from employees as em right join salaries as sa on em.emp_no=sa.emp_no;
+
+-- cross join 
+
+select * from employees cross join salaries on employees.emp_no=salaries.emp_no;
+
+select em.first_name ,sa.salary from employees as em cross join salaries as sa on em.emp_no=sa.emp_no;
+
+-- self join 
+select * from employees , salaries where employees.emp_no= salaries.emp_no;
+
+select em.first_name , sa.salary from employees as em ,salaries as sa where em.emp_no=sa.emp_no ;
+
+-- group by keyword
+
+select count(emp_no), title from titles group by title;
+
+-- using keyword having
+
+select count(emp_no),title from titles group by title having title='manager';
+
+-- using exists keyword 
+
+select first_name ,salary from employees , salaries where exists(select salary from salaries where salaries.emp_no=employees.emp_no and salary > 49999);
+
+-- using any and all keyword
+
+select first_name, last_name from employees where emp_no = any (select emp_no from titles where title = 'manager');
+
+select first_name, last_name from employees where emp_no = all (select emp_no from titles where title = 'manager');
+
+-- using insert into keyword 
+
+-- insert into employees select * from employees_old
+
+-- USING CASE STATEMENT
+
+select emp_no ,gender,
+ case 
+ when gender='M' then 'Work from home' 
+ when gender='F' then 'work from office' 
+ else 'there is no employee' 
+ end as type_of_work 
+ from 
+ employees;
+
+--  to alter table
+
+alter table employees add address varchar(255);
 
 
 
